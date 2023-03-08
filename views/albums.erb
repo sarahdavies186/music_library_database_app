@@ -1,0 +1,14 @@
+<html>
+  <head></head>
+  <body>
+    <h1>Albums</h1>
+    <div>
+      <% @albums.map do |album| %>
+       <div>
+       <a href="/albums/<%= album.id %>"><%= album.title %></a>
+       </div>
+      <% end %>
+    </div>
+  </body>
+</html>
+
