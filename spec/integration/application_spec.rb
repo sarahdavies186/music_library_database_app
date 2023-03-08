@@ -75,4 +75,16 @@ describe Application do
       expect(response.body).to include ("Genre: Rock")
     end
   end
+
+  context "GET /albums/new" do 
+    it "returns the form page" do
+      response = get('albums/new')
+      expect(response.status).to eq(200)
+      expect(response.body).to include('<form action="/albums" method="POST">')
+      expect(response.body).to include('<h1>Add an album</h1>')
+    end
+  end
+
+
+
 end
