@@ -90,7 +90,7 @@ class Application < Sinatra::Base
     # Are they empty strings?
     return true if params[:title] == "" || params[:release_year] == "" || params[:artist_id] == ""
   
-    return false
+    return false  
   end
 
   
