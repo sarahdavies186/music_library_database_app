@@ -38,7 +38,20 @@ describe Application do
       response =
         post("/albums", title: "Voyage", release_year: "2022", artist_id: "2")
       expect(response.status).to eq(200)
-      expect(response.body).to eq ("")
+      expect(response.body).to eq ('<h1>Your album has been added</h1>')
+    end
+
+    it 'returns a success page' do
+      # We're now sending a POST request,
+      # simulating the behaviour that the HTML form would have.
+      response = post("/albums", title: "Voyage", release_year: "2022", artist_id: "2")
+      expect(response.status).to eq(200)
+      expect(response.body).to include('<h1>Your album has been added</h1>')
+    end
+
+    it 'responds with 400 status if parameters are invalid' do
+      response = post("/albums", title: "Voyage", release_year: "Word", artist_id: "")
+      expect(response.status).to eq(400)
     end
   end
 
@@ -57,6 +70,19 @@ describe Application do
       expect(response.status).to eq(200)
       response_2 = get("/artists")
       expect(response_2.status).to eq(200)
+    end
+
+    it 'returns a success page' do
+      # We're now sending a POST request,
+      # simulating the behaviour that the HTML form would have.
+      response = post("/albums", title: "Voyage", release_year: "2022", artist_id: "2")
+      expect(response.status).to eq(200)
+      expect(response.body).to include('<h1>Your album has been added</h1>')
+    end
+
+    it 'responds with 400 status if parameters are invalid' do
+      response = post("/albums", title: "nil", release_year: "nil", artist_id: "")
+      expect(response.status).to eq(400)
     end
   end
 
@@ -85,6 +111,14 @@ describe Application do
     end
   end
 
+  context "GET /artists/new" do 
+    it "returns the form page" do
+      response = get('artists/new')
+      expect(response.status).to eq(200)
+      expect(response.body).to include('<form action="/artists" method="POST">')
+      expect(response.body).to include('<h1>Add an artist</h1>')
+    end
+  end
 
 
 end
