@@ -43,11 +43,7 @@ class Application < Sinatra::Base
   end
 
   post "/artists" do
-    if invalid_request_parameters?
-      status 400
-      return ''
-    end
-    
+
     repo = ArtistRepository.new
     new_artist = Artist.new
     new_artist.name = params[:name]
@@ -90,8 +86,11 @@ class Application < Sinatra::Base
     # Are they empty strings?
     return true if params[:title] == "" || params[:release_year] == "" || params[:artist_id] == ""
   
-    return false  
+    return false
   end
 
   
 end
+
+# key = [:title, :release_year, :artist_id]
+#     key.each { |k| return status 400 if params[k] == nil }
